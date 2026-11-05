@@ -7,7 +7,7 @@ function Footer() {
       <div className={styles.content}>
         <div className={styles.about}>
           <h2>News</h2>
-          <p>دنیای خبر و مقاله؛ جایی برای دنبال کردن موضوعات و ایده‌های تازه.</p>
+          <p>Your place to explore the latest stories, ideas, and articles.</p>
         </div>
 
         <div className={styles.socials}>
