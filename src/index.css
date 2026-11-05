@@ -7,3 +7,18 @@
 main {
   flex: 1;
 }
+
+
+body {
+    
+    background-color: #08090d;
+    color: #e5e7eb;
+    background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(90, 70, 180, 0.13), transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+
+        
+
+    background-attachment: fixed;
+}

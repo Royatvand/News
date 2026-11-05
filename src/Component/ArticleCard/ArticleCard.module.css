@@ -1,38 +1,94 @@
+/* --- استایل کارت اصلی --- */
 .card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 300px;
-    max-width: 100%;
-    padding: 16px;
-    margin: 0;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  width: 320px; /* کمی عریض‌تر */
+  margin: 15px  ;
+  
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #ffffff; /* پس‌زمینه سفید تمیز */
+  border: 1px solid #e0e0e0; /* حاشیه بسیار ملایم */
+  border-radius: 12px; /* گوشه‌های گردتر */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* سایه ملایم */
+  transition: all 0.3s ease; /* انیمیشن نرم برای هاور */
 }
 
+/* افکت وقتی موس روی کارت میره */
+.card:hover {
+  transform: translateY(-5px); /* کارت کمی بالا میاد */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* سایه عمیق‌تر میشه */
+  border-color: #007bff; /* رنگ حاشیه تغییر میکنه (اختیاری) */
+}
+
+/* --- عنوان --- */
 .title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px 0; /* فاصله از پایین */
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* عنوان حداکثر ۲ خط باشه */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* --- متن خلاصه --- */
 .summary {
-    background-color: aqua;
-    padding: 12px;
-    margin: 0;
-    box-sizing: border-box;
-    overflow-wrap: break-word;
+  background-color: #ced3d8; /* خاکستری خیلی روشن و ملایم */
+  padding: 15px;
+  margin: 0 0 16px 0;
+  border-radius: 8px; /* گرد کردن گوشه‌های متن */
+  border-left: 4px solid #007bff; /* یه خط رنگی سمت راست برای زیبایی */
+  font-size: 14px;
+  color: #495057;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* متن حداکثر ۳ خط باشه و بقیه سه نقطه بشه */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* --- بخش آمار و اطلاعات --- */
 .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 14px;
-    color: #555;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* فاصله بین آیتم‌ها */
+  font-size: 13px;
+  color: #6c757d;
+  padding-top: 15px;
+  border-top: 1px solid #eee; /* خط جداکننده بالای آمار */
 }
 
 .meta p {
-    margin: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px; /* فاصله بین آیکون و عدد */
+}
+
+/* افکت هاور برای آیکون‌ها */
+.meta p:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+
+
+.btn{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 400px) {
+  .card {
+    width: 100%; /* روی موبایل تمام عرض بشه */
+    margin: 15px 0;
+  }
 }
