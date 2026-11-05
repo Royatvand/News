@@ -5,16 +5,16 @@ import styles from './header.module.css';
 function Header() {
   return (
     <header className={styles.header}>
-      <nav aria-label="منوی اصلی">
+      <nav aria-label="Main navigation">
         <ul>
           <li>
-            <Link to="/"><FaHome /> <span>خانه</span></Link>
+            <Link to="/"><FaHome /> <span>Home</span></Link>
           </li>
           <li>
-            <Link to="/about"><FaInfoCircle /> <span>درباره ما</span></Link>
+            <Link to="/about"><FaInfoCircle /> <span>About</span></Link>
           </li>
           <li>
-            <Link to="/contact"><FaEnvelope /> <span>تماس با ما</span></Link>
+            <Link to="/contact"><FaEnvelope /> <span>Contact</span></Link>
           </li>
         </ul>
       </nav>
