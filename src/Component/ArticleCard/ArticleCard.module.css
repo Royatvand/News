@@ -1,17 +1,15 @@
 /* --- استایل کارت اصلی --- */
 .card {
-  display: inline-block;
-  vertical-align: top;
-  width: 320px; /* کمی عریض‌تر */
-  margin: 15px  ;
-  
+  display: block;
+  width: 100%;
+  margin: 0;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #ffffff; /* پس‌زمینه سفید تمیز */
-  border: 1px solid #e0e0e0; /* حاشیه بسیار ملایم */
-  border-radius: 12px; /* گوشه‌های گردتر */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* سایه ملایم */
-  transition: all 0.3s ease; /* انیمیشن نرم برای هاور */
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 /* افکت وقتی موس روی کارت میره */
@@ -86,9 +84,3 @@
   transition: background-color 0.3s ease;
 }
 
-@media (max-width: 400px) {
-  .card {
-    width: 100%; /* روی موبایل تمام عرض بشه */
-    margin: 15px 0;
-  }
-}
