@@ -8,7 +8,7 @@
   margin: 12px auto 32px;
   padding: 0 30px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   background: rgba(17, 24, 39, 0.58);
   backdrop-filter: blur(18px);
