@@ -20,7 +20,7 @@ function ArticleCard(props) {
                 <div className={styles.meta}>  
             <p> id: {props.article.id} <FaHashtag /></p>
 
-            <p>view: {props.article.views} <FaHashtag /></p>
+            <p>view: {props.article.views} <FaEye /></p>
 
             <p>like: {props.article.reactions.likes} <FaThumbsUp /> </p>
 

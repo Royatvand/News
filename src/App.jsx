@@ -1,10 +1,22 @@
 import Footer from './Component/footer/footer'
 import './App.css'
-import Home from './pages/Home/Home'
+import Home from './pages/home/home'
+import { Routes, Route } from 'react-router-dom';
+import about from './pages/about/about'
+import Contact from './pages/contact/contact'
 
 function App() {
     return (
-        <Home />
+       
+        <div>
+        
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<about />} /> 
+            <Route path="/contact" element={<Contact />} />
+        </Routes>
+       
+        </div>
     )
 }
 
