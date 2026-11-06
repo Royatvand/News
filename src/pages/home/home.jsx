@@ -7,18 +7,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function Home() {
-
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        axios.get('https://dummyjson.com/posts')
+        axios.get('https://dev.to/api/articles?per_page=30')
             .then(response => {
-                setArticles(response.data.posts);
+                setArticles(response.data);
             })
             .catch(error => {
                 console.log('Error fetching articles:', error);
             });
-
     }, []);
 
     return (
