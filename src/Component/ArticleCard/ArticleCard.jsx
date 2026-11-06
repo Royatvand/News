@@ -5,6 +5,9 @@ import { FaClock, FaThumbsUp, FaComment, FaHashtag, FaUser } from 'react-icons/f
 
 function ArticleCard(props) {
     const article = props.article;
+    const tags = Array.isArray(article.tag_list)
+        ? article.tag_list.slice(0, 2)
+        : [];
 
     return (
         <div className={styles.card}>
@@ -34,7 +37,7 @@ function ArticleCard(props) {
                         {article.comments_count} <FaComment />
                     </p>
 
-                    {article.tag_list?.slice(0, 2).map(tag => (
+                    {tags.map(tag => (
                         <p key={tag}>
                             {tag} <FaHashtag />
                         </p>
