@@ -1,43 +1,52 @@
 import React from 'react';
 import styles from './ArticleCard.module.css';
 import { Link } from 'react-router-dom';
-import { FaEye, FaThumbsUp, FaThumbsDown, FaHashtag } from 'react-icons/fa';
+import { FaClock, FaThumbsUp, FaComment, FaHashtag, FaUser } from 'react-icons/fa';
+
 function ArticleCard(props) {
-    const { title, body, id, views, reactions } = props.article;
+    const article = props.article;
+
     return (
-        
         <div className={styles.card}>
             <div className={styles.Container}>
-            
-            <h2 className={styles.title}>
-                {props.article.title}
-            </h2>
+                <h2 className={styles.title}>
+                    {article.title}
+                </h2>
 
-            <p className={styles.summary}>
-                {props.article.body}
-            </p>
+                <p className={styles.summary}>
+                    {article.description || 'No description available.'}
+                </p>
 
+                <div className={styles.meta}>
+                    <p>
+                        {article.user?.name || article.user?.username || 'Unknown author'} <FaUser />
+                    </p>
 
-                <div className={styles.meta}>  
-            <p> id: {props.article.id} <FaHashtag /></p>
+                    <p>
+                        {article.reading_time_minutes} min <FaClock />
+                    </p>
 
-            <p>view: {props.article.views} <FaEye /></p>
+                    <p>
+                        {article.public_reactions_count} <FaThumbsUp />
+                    </p>
 
-            <p>like: {props.article.reactions.likes} <FaThumbsUp /> </p>
+                    <p>
+                        {article.comments_count} <FaComment />
+                    </p>
 
-            
-            <p>dislike: {props.article.reactions.dislikes} <FaThumbsDown /> </p>
-            <div className={styles.btn}>
-            <Link to={`/article/${props.article.id}`}>
-    Read More
-</Link>
+                    {article.tag_list?.slice(0, 2).map(tag => (
+                        <p key={tag}>
+                            {tag} <FaHashtag />
+                        </p>
+                    ))}
+
+                    <div className={styles.btn}>
+                        <Link to={`/article/${article.id}`}>
+                            Read More
+                        </Link>
+                    </div>
+                </div>
             </div>
-             </div>
-
-            </div>
-            
-
-         
         </div>
     );
 }
