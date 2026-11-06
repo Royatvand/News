@@ -4,13 +4,14 @@ import About from './pages/about/about';
 import Contact from './pages/contact/contact';
 import { Routes, Route } from 'react-router-dom';
 import ArticleDetails from './pages/articleDetails/articleDetails';
-
+import NotFound from './pages/404/404';
 
 function App() {
   return (
     <div>
       <Routes>
-      <Route path="/article/:id" element={<ArticleDetails />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/article/:id" element={<ArticleDetails />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

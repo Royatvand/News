@@ -1,0 +1,190 @@
+
+.notFound {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 30px 20px;
+  background: #080812;
+  color: #f1f1f5;
+  text-align: center;
+}
+
+/* نور بنفش پس‌زمینه */
+.glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: #7c3aed;
+  filter: blur(180px);
+  opacity: 0.2;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ستاره‌های پس‌زمینه */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(rgba(167, 139, 250, 0.8) 1px, transparent 1px);
+  background-size: 70px 70px, 110px 110px;
+  background-position: 0 0, 35px 45px;
+  opacity: 0.25;
+  animation: starsMove 25s linear infinite;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 550px;
+  width: 100%;
+  animation: fadeUp 0.8s ease both;
+}
+
+.label {
+  display: inline-block;
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+/* عدد 404 */
+.number {
+  font-size: clamp(120px, 25vw, 220px);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -12px;
+  background: linear-gradient(
+    135deg,
+    #c4b5fd,
+    #8b5cf6,
+    #6366f1
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.35));
+  animation: floating 4s ease-in-out infinite;
+}
+
+.content h2 {
+  font-size: 30px;
+  margin: 20px 0 12px;
+  color: #fff;
+}
+
+.content p {
+  color: #9ca3af;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* دکمه بازگشت */
+.homeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+  transition: 0.3s ease;
+}
+
+.homeButton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.45);
+}
+
+.homeButton svg:last-child {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.homeButton:hover svg:last-child {
+  transform: translateX(-4px);
+}
+
+.footerText {
+  display: block;
+  margin-top: 70px;
+  color: #55536b;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+/* انیمیشن‌ها */
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes starsMove {
+  from {
+    background-position: 0 0, 35px 45px;
+  }
+  to {
+    background-position: 70px 70px, 145px 155px;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 520px) {
+  .number {
+    letter-spacing: -6px;
+  }
+
+  .content h2 {
+    font-size: 24px;
+  }
+
+  .content p {
+    font-size: 13px;
+  }
+
+  .footerText {
+    margin-top: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .number,
+  .stars,
+  .content {
+    animation: none;
+  }
+
+  .homeButton {
+    transition: none;
+  }
+}
