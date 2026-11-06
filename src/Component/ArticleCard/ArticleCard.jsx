@@ -43,11 +43,12 @@ function ArticleCard(props) {
                         </p>
                     ))}
 
-                    <div className={styles.btn}>
-                        <Link to={`/article/${article.id}`}>
-                            Read More
-                        </Link>
-                    </div>
+                    <Link
+                        to={`/article/${article.id}`}
+                        className={styles.btn}
+                    >
+                        Read More
+                    </Link>
                 </div>
             </div>
         </div>

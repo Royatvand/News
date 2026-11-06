@@ -74,7 +74,7 @@
 }
 
 
-.btn{
+.btn {
   display: inline-block;
   padding: 10px 20px;
   background-color: #007bff;
@@ -83,4 +83,3 @@
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
-
