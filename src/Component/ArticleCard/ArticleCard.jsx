@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ArticleCard.module.css';
+import { Link } from 'react-router-dom';
 import { FaEye, FaThumbsUp, FaThumbsDown, FaHashtag } from 'react-icons/fa';
 function ArticleCard(props) {
     const { title, body, id, views, reactions } = props.article;
@@ -27,9 +28,9 @@ function ArticleCard(props) {
             
             <p>dislike: {props.article.reactions.dislikes} <FaThumbsDown /> </p>
             <div className={styles.btn}>
-            <a >
-                Read More
-            </a>
+            <Link to={`/article/${props.article.id}`}>
+    Read More
+</Link>
             </div>
              </div>
 
