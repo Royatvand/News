@@ -1,16 +1,128 @@
-# React + Vite
+# پروژه مقالات با React
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+این پروژه با React و Vite ساخته شده و مقاله‌ها را از یک API دریافت و نمایش می‌دهد.
 
-Currently, two official plugins are available:
+## هدف این بخش چیست؟
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ما نمی‌خواهیم برای هر مقاله یک صفحه جداگانه بسازیم. به‌جای آن، یک صفحه جزئیات می‌سازیم که با توجه به شناسه مقاله (ID) اطلاعات همان مقاله را نمایش می‌دهد.
 
-## React Compiler
+برای مثال:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `/article/1` مقاله شماره ۱ را نمایش می‌دهد.
+- `/article/2` مقاله شماره ۲ را نمایش می‌دهد.
+- `/article/25` مقاله شماره ۲۵ را نمایش می‌دهد.
 
-## Expanding the Oxlint configuration
+یعنی یک کامپوننت داریم، اما محتوای آن با ID موجود در آدرس تغییر می‌کند.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## مسیر کار چگونه است؟
+
+1. صفحه `Home` با Axios فهرست مقاله‌ها را از API می‌گیرد.
+2. مقاله‌ها با `map` به کامپوننت `ArticleCard` فرستاده می‌شوند.
+3. کاربر روی دکمه **Read More** کلیک می‌کند.
+4. کامپوننت `Link` کاربر را به آدرس مخصوص همان مقاله می‌برد.
+5. در `App.jsx` یک مسیر داینامیک برای صفحه جزئیات تعریف شده است.
+6. کامپوننت `ArticleDetails` شناسه را با `useParams` از آدرس می‌گیرد.
+7. با استفاده از Axios، اطلاعات همان مقاله از API دریافت می‌شود.
+8. اطلاعات در `useState` ذخیره و در صفحه نمایش داده می‌شوند.
+
+## ابزارهایی که استفاده کردیم
+
+### 1. Route داینامیک
+
+در فایل `App.jsx` مسیر صفحه جزئیات را تعریف می‌کنیم:
+
+```jsx
+<Route path="/article/:id" element={<ArticleDetails />} />
+```
+
+علامت `:` یعنی این قسمت از آدرس یک مقدار متغیر است. نام این پارامتر در اینجا `id` است.
+
+### 2. Link
+
+در کامپوننت `ArticleCard` از `Link` استفاده می‌کنیم:
+
+```jsx
+<Link to={`/article/${props.article.id}`}>
+  Read More
+</Link>
+```
+
+با کلیک روی لینک، مسیر عوض می‌شود و نیازی به بارگذاری کامل دوباره صفحه نیست.
+
+### 3. useParams
+
+در `ArticleDetails` شناسه را از URL دریافت می‌کنیم:
+
+```jsx
+const { id } = useParams();
+```
+
+مثلاً اگر آدرس `/article/25` باشد، مقدار `id` برابر رشته `"25"` خواهد بود.
+
+### 4. useState
+
+برای نگهداری اطلاعات مقاله از State استفاده می‌کنیم:
+
+```jsx
+const [post, setPost] = useState(null);
+```
+
+مقدار اولیه `null` است، چون هنوز اطلاعات مقاله دریافت نشده است. بعد از دریافت اطلاعات، با `setPost` مقدار آن را تغییر می‌دهیم.
+
+### 5. useEffect و Axios
+
+در زمان ورود به صفحه، درخواست دریافت مقاله اجرا می‌شود:
+
+```jsx
+useEffect(() => {
+  axios.get(`https://dummyjson.com/posts/${id}`)
+    .then((res) => {
+      setPost(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [id]);
+```
+
+- `axios.get` اطلاعات مقاله را از API می‌گیرد.
+- `res.data` داده اصلی مقاله است.
+- `setPost` اطلاعات را در State ذخیره می‌کند.
+- آرایه وابستگی `[id]` باعث می‌شود اگر شناسه تغییر کرد، درخواست دوباره اجرا شود.
+
+### 6. نمایش Loading
+
+تا زمانی که اطلاعات دریافت نشده‌اند، پیام Loading نمایش داده می‌شود:
+
+```jsx
+if (!post) {
+  return <p>Loading...</p>;
+}
+```
+
+بعد از دریافت اطلاعات، عنوان و متن مقاله را نمایش می‌دهیم:
+
+```jsx
+return (
+  <div>
+    <h1>{post.title}</h1>
+    <p>{post.body}</p>
+  </div>
+);
+```
+
+## API مورد استفاده
+
+برای دریافت فهرست مقاله‌ها:
+
+`https://dummyjson.com/posts`
+
+برای دریافت یک مقاله با شناسه مشخص:
+
+`https://dummyjson.com/posts/25`
+
+به‌جای عدد ۲۵، شناسه مقاله موردنظر قرار می‌گیرد.
+
+## خلاصه
+
+**Home** فهرست مقاله‌ها را می‌گیرد، **ArticleCard** لینک هر مقاله را می‌سازد، **useParams** شناسه را از URL می‌خواند و **ArticleDetails** اطلاعات همان مقاله را از API دریافت و نمایش می‌دهد.
