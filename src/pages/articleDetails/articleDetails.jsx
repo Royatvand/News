@@ -2,6 +2,7 @@ import styles from "./ArticleDetails.module.css";
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import DOMPurify from "dompurify";
 import Header from "../../Component/header/header";
 import Footer from "../../Component/footer/footer";
 
@@ -12,24 +13,50 @@ function ArticleDetails() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      setPost(null);
+      setLoading(false);
+      setError(true);
+      return;
+    }
 
     const controller = new AbortController();
+    let isActive = true;
+
+    setPost(null);
     setLoading(true);
     setError(false);
 
     axios
-      .get(`https://dev.to/api/articles/${id}`, { signal: controller.signal })
-      .then((res) => setPost(res.data))
+      .get(`https://dev.to/api/articles/${id}`, {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        if (isActive) {
+          setPost(res.data);
+        }
+      })
       .catch((err) => {
-        if (axios.isCancel(err)) return;
-        console.error(err);
+        if (!isActive || axios.isCancel(err)) return;
+
+        console.error("Error fetching article:", err);
         setError(true);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (isActive) {
+          setLoading(false);
+        }
+      });
 
-    return () => controller.abort();
+    return () => {
+      isActive = false;
+      controller.abort();
+    };
   }, [id]);
+
+  const safeArticleHtml = post
+    ? DOMPurify.sanitize(post.body_html || "")
+    : "";
 
   return (
     <div className={styles.page}>
@@ -125,7 +152,7 @@ function ArticleDetails() {
               <article
                 key={post.id}
                 className={styles.content}
-                dangerouslySetInnerHTML={{ __html: post.body_html || "" }}
+                dangerouslySetInnerHTML={{ __html: safeArticleHtml }}
               />
             </div>
           </>
